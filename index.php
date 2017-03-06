@@ -123,7 +123,7 @@ try { // MEST SÅRENDE INDIVIDER
     $stmt = $conn->prepare("SELECT saarer_id, COUNT(*) AS occurrences FROM wounds GROUP BY saarer_id ORDER BY occurrences DESC LIMIT 5");
     $stmt->execute();
     $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-	echo "Mest sårede individer";
+	echo "Mest sårende individer";
 	start_tabel(array("Navn","Antal sår"));
 	// print_r($stmt->fetchAll());
 	foreach( $stmt->fetchAll() as $rekord ) {
@@ -157,7 +157,7 @@ try { // KAMPE VUNDET AF HHV. A OG F
 		"f_sejre" => 0,
 		"f_varighed" => 0,
 		"f_v_ialt" =>0);
-	$stmt = $conn->prepare("SELECT ang_id, for_id, start, slut, vinder_id FROM kampe");
+	$stmt = $conn->prepare("SELECT ang_id, for_id, start, slut, vinder_id FROM kampe" . $season);
 	$stmt->execute();
 	$kampe = $stmt->fetchAll();
 	foreach ( $kampe as $kamp ) {
