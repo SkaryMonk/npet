@@ -40,36 +40,15 @@ if (!isset($_POST["season"]) || $_POST["season"]=='alle') {
 } else {
 	$season = " WHERE season = '" . $_POST["season"] . "'";
 }
-	
-try { // GENNEMSNITSTID FOR EN KAMP
-	$stmt = $conn->prepare("SELECT start, slut FROM kampe" . $season);
-	$stmt->execute();
-	
-	$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-	$arrays = $stmt->fetchAll();
-	$samlet_diff = 0;
-	$antal_diff = 0;
-	foreach($arrays as $tider) {
-		$diff = $tider["slut"] - $tider["start"];
-		if ($diff) {
-			$samlet_diff+=$diff;
-			$antal_diff++;
-		}
-	}
-	$gns = $samlet_diff / $antal_diff;
-	# echo "gns: " . $gns;
-	echo "Gennemsnitlig varighed for kampe i sæson: " . $_POST['season'] . "
-		<form method='post'>
-			<select name='season'>
-				<option value='alle'>Alle</option>
-				<option>3</option>
-			</select>
-			<input type='submit' />
-		</form>\n";
-	echo "Tid: " . format_time($gns);
-} catch(PDOException $e) {
-	echo "PDO-fejl: " . $e->getMessage();
-}
+
+echo "Inkludér kun kampe fra sæson: " . $_POST['season'] . "
+	<form method='post'>
+		<select name='season'>
+			<option value='alle'>Alle</option>
+			<option>3</option>
+		</select>
+		<input type='submit' />
+	</form>\n";
 
 try { // MEST SPILLEDE SCENARIER
     $stmt = $conn->prepare("SELECT ang_id, for_id, scslag, scenario, vinder_id FROM kampe" . $season);
