@@ -62,7 +62,7 @@ try {
 }
 
 try {
-	$skader = $conn->prepare("SELECT * FROM skader");
+	$skader = $conn->prepare("SELECT * FROM skader ORDER BY skade ASC");
 	$skader->execute();
 	foreach( $skader->fetchAll() as $skade ) {
 		$skader_options .= '<option value="' . $skade["id"] . '">' . $skade["skade"] . '</option>\n';
