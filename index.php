@@ -37,8 +37,21 @@ function start_tabel($overskrifter) {
 
 if (!isset($_POST["season"]) || $_POST["season"]=='alle') {
 	$season = "";
+	$kampe_i_season = "";
 } else {
 	$season = " WHERE season = '" . $_POST["season"] . "'";
+	try {
+		$stmt = $conn->prepare("SELECT id FROM kampe" . $season);
+		$stmt->execute();
+		$kampe_i_season = $stmt->fetchAll();
+		// print_r($kampe_i_season);
+		$forste_kamp = array_shift(array_shift($kampe_i_season));
+		$sidste_kamp = array_pop(array_pop($kampe_i_season));
+		$kampe_i_season = " WHERE kamp_id BETWEEN " . $forste_kamp . " AND " . $sidste_kamp;
+	} 
+	catch(PDOException $e) {
+		echo "Error: " . $e->getMessage();
+	}
 }
 
 echo "Inkludér kun kampe fra sæson: " . $_POST['season'] . "
@@ -99,7 +112,7 @@ catch(PDOException $e) {
 }
 
 try { // MEST SÅRENDE INDIVIDER
-    $stmt = $conn->prepare("SELECT saarer_id, COUNT(*) AS occurrences FROM wounds GROUP BY saarer_id ORDER BY occurrences DESC LIMIT 5");
+    $stmt = $conn->prepare("SELECT saarer_id, COUNT(*) AS occurrences FROM wounds".$kampe_i_season." GROUP BY saarer_id ORDER BY occurrences DESC LIMIT 5");
     $stmt->execute();
     $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 	echo "Mest sårende individer";
@@ -114,7 +127,7 @@ try { // MEST SÅRENDE INDIVIDER
 }
 
 try { // MEST SÅREDE INDIVIDER
-    $stmt = $conn->prepare("SELECT saaret_id, COUNT(*) AS occurrences FROM wounds GROUP BY saaret_id ORDER BY occurrences DESC LIMIT 5");
+    $stmt = $conn->prepare("SELECT saaret_id, COUNT(*) AS occurrences FROM wounds".$kampe_i_season." GROUP BY saaret_id ORDER BY occurrences DESC LIMIT 5");
     $stmt->execute();
     $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 	echo "Mest sårede individer";
