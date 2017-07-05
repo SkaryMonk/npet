@@ -11,19 +11,24 @@ try { // OPRET FORBINDELSE
 	echo "Connection failed: " . $e->getMessage();
 }
 
-$dato = explode( "-", $_POST["dato"] );
-$start = explode( ":", $_POST["start"] );
-$slut = explode( ":", $_POST["slut"] );
-$sta = mktime( $start[0], $start[1], 0, $dato[1], $dato[0], $dato[2] );
-$slu = mktime( $slut[0], $slut[1], 0, $dato[1], $dato[0], $dato[2] );
-$blind = ( $_POST["blind"] == 'on' ) ? 1 : 0;
-$grudge = ( $_POST["grudge"] == 'on' ) ? 1 : 0;
-
 if ( $_POST["indsendt"] == "indsendt" ) {
+	$dato = explode( "-", $_POST["dato"] );
+	$start = explode( ":", $_POST["start"] );
+	$slut = explode( ":", $_POST["slut"] );
+	$sta = mktime( $start[0], $start[1], 0, $dato[1], $dato[0], $dato[2] );
+	$slu = mktime( $slut[0], $slut[1], 0, $dato[1], $dato[0], $dato[2] );
+	if ( $_POST["blind"] == 'on' ) {
+		$blind =  $_POST["scenario"];
+		$_POST["scenario"] = "Blind Fight";
+	} else {
+		$blind = 0;
+	}
+	$grudge = ( $_POST["grudge"] == 'on' ) ? 1 : 0;
+
 	try {
 		$conn->beginTransaction();
 		$query = 'INSERT INTO kampe (ang_id, ang_rating, for_id, for_rating, start, slut, scslag, scenario, blind, grudge, ang_start, ang_total, for_start, for_total, wounds, vinder_id, ture_hardcode, season)
-					VALUES ( "'.$_POST["angriber"].'", '.$_POST["angriber_rating"].', "'.$_POST["forsvarer"].'", '.$_POST["forsvarer_rating"].', '.$sta.', '.$slu.', '.$_POST["scslag"].', "'.$_POST["scenario"].'", '.$blind.', '.$grudge.', '.$_POST["a_i_s"].', '.$_POST["a_i_i"].', '.$_POST["f_i_s"].', '.$_POST["f_i_i"].', '.$_GET["wounds"].', '.$_POST["vinder"].', 0, 3 )';
+					VALUES ( "'.$_POST["angriber"].'", '.$_POST["angriber_rating"].', "'.$_POST["forsvarer"].'", '.$_POST["forsvarer_rating"].', '.$sta.', '.$slu.', '.$_POST["scslag"].', "'.$_POST["scenario"].'", "'.$blind.'", '.$grudge.', '.$_POST["a_i_s"].', '.$_POST["a_i_i"].', '.$_POST["f_i_s"].', '.$_POST["f_i_i"].', '.$_GET["wounds"].', '.$_POST["vinder"].', 0, 3.5 )';
 		$conn->exec( $query );
 		$kamp_id = $conn->lastInsertId();
 
