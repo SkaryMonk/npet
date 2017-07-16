@@ -177,6 +177,49 @@ try { // KAMPE VUNDET AF HHV. A OG F
     echo "Error: " . $e->getMessage();
 }
 
+try { // MEST SÅREDE INDIVIDER
+    $stmt = $conn->prepare("SELECT saarer_id, saaret_id, COUNT(*) AS saar FROM wounds GROUP BY saarer_id, saaret_id ORDER BY `saar` DESC");
+    $stmt->execute();
+    $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+	$result = $stmt->fetchAll();
+	$rivaler = array();
+	$noteret = array();
+	$udput = array ();
+
+	foreach (  $result as $hentet ) {
+		$keys = array_keys( array_column($result, "saarer_id"), $hentet["saaret_id"] );
+		$andresaar = 0;
+		foreach ( $keys as $key ) {
+			if ( $result[$key]['saaret_id'] == $hentet['saarer_id'] ) {
+				$andresaar = $result[$key]['saar'];
+			}
+		}
+		$rivalskab = $hentet["saaret_id"] . "+" . $hentet["saarer_id"];
+		$rivaler[$rivalskab] = $hentet["saar"] + $andresaar;
+	}
+	arsort( $rivaler );
+
+	foreach ( $rivaler as $parterne => $graden ) {
+		$parterne = explode( "+", $parterne );
+		if ( $i > 5 ) {
+			break;
+		} else if ( $parterne[0] != $noteret[$parterne[1]] && $parterne[0] != $parterne[1] ) {
+			$noteret[$parterne[0]] = $parterne[1];
+			$i++;
+			$udput[] = array( $parterne[0], $parterne[1], $graden );
+		}
+	}
+	
+	echo "Værste rivaler";
+	start_tabel( array( "Navn", "Andet navn", "Udvekslede sår" ) );
+	foreach( $udput as $rekord ) {
+		echo "<tr><td style='width:150px;border:1px solid black;'>" . navngiv( $rekord[0], $conn ) . "</td><td style='width:150px;border:1px solid black;'>" . navngiv( $rekord[1], $conn ) . "</td><td style='width:150px;border:1px solid black;'>" . $rekord[2] . "</td><tr>";
+	}
+	echo "</table><br />";
+} catch(PDOException $e) {
+    echo "Error: " . $e->getMessage();
+}
+
 $conn = null;
 
 ?>
