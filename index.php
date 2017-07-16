@@ -44,9 +44,8 @@ if (!isset($_POST["season"]) || $_POST["season"]=='alle') {
 		$stmt = $conn->prepare("SELECT id FROM kampe" . $season);
 		$stmt->execute();
 		$kampe_i_season = $stmt->fetchAll();
-		// print_r($kampe_i_season);
-		$forste_kamp = array_shift(array_shift($kampe_i_season));
-		$sidste_kamp = array_pop(array_pop($kampe_i_season));
+		$forste_kamp = $kampe_i_season[0]['id'];
+		$sidste_kamp = end($kampe_i_season)['id'];
 		$kampe_i_season = " WHERE kamp_id BETWEEN " . $forste_kamp . " AND " . $sidste_kamp;
 	} 
 	catch(PDOException $e) {
@@ -59,6 +58,7 @@ echo "Inkludér kun kampe fra sæson: " . $_POST['season'] . "
 		<select name='season'>
 			<option value='alle'>Alle</option>
 			<option>3</option>
+			<option>3.5</option>
 		</select>
 		<input type='submit' />
 	</form>\n";

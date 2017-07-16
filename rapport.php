@@ -70,7 +70,8 @@ try {
 	$skader = $conn->prepare("SELECT * FROM skader ORDER BY skade ASC");
 	$skader->execute();
 	foreach( $skader->fetchAll() as $skade ) {
-		$skader_options .= '<option value="' . $skade["id"] . '">' . $skade["skade"] . '</option>\n';
+		$selected = ( $skade['skade'] == 'Full Recovery') ? " selected='selected'" : "";
+		$skader_options .= '<option value="' . $skade["id"] . '"' . $selected . '>' . $skade["skade"] . '</option>\n';
 	}
 } catch(PDOException $e) {
 	echo "Fetch failed: " . $e->getMessage();
