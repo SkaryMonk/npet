@@ -1,39 +1,44 @@
 -- phpMyAdmin SQL Dump
--- version 4.3.9
--- http://www.phpmyadmin.net
+-- version 4.9.4
+-- https://www.phpmyadmin.net/
 --
--- Vært: localhost:3306
--- Genereringstid: 05. 07 2017 kl. 14:34:00
--- Serverversion: 5.5.54-0+deb8u1
--- PHP-version: 5.6.30-0+deb8u1
+-- Host: localhost
+-- Generation Time: Dec 07, 2020 at 01:37 PM
+-- Server version: 10.3.23-MariaDB-0+deb10u1-log
+-- PHP Version: 7.4.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `62_npet`
 --
+CREATE DATABASE IF NOT EXISTS `62_npet` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `62_npet`;
 
 -- --------------------------------------------------------
 
 --
--- Struktur-dump for tabellen `bander`
+-- Table structure for table `bander`
 --
 
-CREATE TABLE IF NOT EXISTS `bander` (
+DROP TABLE IF EXISTS `bander`;
+CREATE TABLE `bander` (
   `id` int(11) NOT NULL,
   `navn` text NOT NULL,
   `yt_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Data dump for tabellen `bander`
+-- Dumping data for table `bander`
 --
 
 INSERT INTO `bander` (`id`, `navn`, `yt_id`) VALUES
@@ -46,26 +51,29 @@ INSERT INTO `bander` (`id`, `navn`, `yt_id`) VALUES
 (6, 'New Underhive Order', 0),
 (7, 'Society for Cutting Up Men', 20559),
 (8, 'Techno Vipers', 20168),
-(9, 'Thane''s Black Rebels', 20018),
+(9, 'Thane\'s Black Rebels', 20018),
 (10, 'The Anabasics', 20279),
 (11, 'The Angel Gang', 20135),
 (12, 'The Cadaver Synod', 21301),
-(13, 'Everybody', 0);
+(13, 'Everybody', 0),
+(14, 'Rebellion', 21723),
+(15, 'Cadaver Synod', 25536);
 
 -- --------------------------------------------------------
 
 --
--- Struktur-dump for tabellen `gangers`
+-- Table structure for table `gangers`
 --
 
-CREATE TABLE IF NOT EXISTS `gangers` (
+DROP TABLE IF EXISTS `gangers`;
+CREATE TABLE `gangers` (
   `id` int(11) NOT NULL,
   `medlem` text NOT NULL,
   `bande_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=150 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Data dump for tabellen `gangers`
+-- Dumping data for table `gangers`
 --
 
 INSERT INTO `gangers` (`id`, `medlem`, `bande_id`) VALUES
@@ -74,7 +82,7 @@ INSERT INTO `gangers` (`id`, `medlem`, `bande_id`) VALUES
 (3, 'Chaplain Furiosa', 2),
 (4, 'The Ground', 0),
 (5, 'Plasma Candy', 7),
-(6, '"It''s Personal" Kim', 7),
+(6, '\"It\'s Personal\" Kim', 7),
 (7, 'Crazy Talbot', 8),
 (8, 'La Donita', 7),
 (9, 'Glory Hole Hawkins', 8),
@@ -150,7 +158,7 @@ INSERT INTO `gangers` (`id`, `medlem`, `bande_id`) VALUES
 (79, 'Mr. Rain', 12),
 (80, 'Deacon Adriel', 2),
 (81, 'Victus', 2),
-(82, '"Pig" Bait', 11),
+(82, '\"Pig\" Bait', 11),
 (83, 'Ellen Degenerate', 7),
 (84, 'Fingers', 4),
 (85, 'Schaeffer', 4),
@@ -162,9 +170,9 @@ INSERT INTO `gangers` (`id`, `medlem`, `bande_id`) VALUES
 (91, 'Mr. Quick', 12),
 (92, 'Shiv', 4),
 (93, 'Barry Sanders', 5),
-(94, 'Pollux "Bollocks" Troy', 8),
+(94, 'Pollux \"Bollocks\" Troy', 8),
 (95, 'Zeek', 8),
-(96, 'Cas "STD" Cockburn', 8),
+(96, 'Cas \"STD\" Cockburn', 8),
 (97, 'Bennett', 10),
 (98, 'T-Bird', 10),
 (99, 'Link Angel', 11),
@@ -214,17 +222,35 @@ INSERT INTO `gangers` (`id`, `medlem`, `bande_id`) VALUES
 (144, 'Sumpie', 0),
 (145, 'Misfire', 0),
 (146, 'Cornwallis Gutengolz', 8),
-(147, 'Warriv "Angel" Wordingson', 11),
+(147, 'Warriv \"Angel\" Wordingson', 11),
 (148, 'Massive Electrical Discharge', 0),
-(149, 'Icepick', 8);
+(149, 'Icepick', 8),
+(150, 'Paradox', 14),
+(151, 'Penta', 14),
+(152, 'Acid Bath Reposing', 15),
+(153, 'Bertrand Vandervelde', 15),
+(154, 'Tazio Bazakbal', 15),
+(155, 'Luke', 14),
+(156, 'Murph', 14),
+(157, 'Calixto Bandera', 15),
+(158, 'Silas Flannery', 15),
+(159, 'Watcher', 14),
+(160, 'Ukko Ahti', 15),
+(161, 'Krycek', 14),
+(162, 'Silver', 14),
+(163, 'Vorts Viljandi', 15),
+(164, 'Anatoly Anatolin', 15),
+(165, 'Ranzz', 14),
+(166, 'Ermes Marana', 15);
 
 -- --------------------------------------------------------
 
 --
--- Struktur-dump for tabellen `kampe`
+-- Table structure for table `kampe`
 --
 
-CREATE TABLE IF NOT EXISTS `kampe` (
+DROP TABLE IF EXISTS `kampe`;
+CREATE TABLE `kampe` (
   `id` int(11) NOT NULL,
   `ang_id` int(2) NOT NULL,
   `ang_rating` int(4) NOT NULL,
@@ -244,81 +270,83 @@ CREATE TABLE IF NOT EXISTS `kampe` (
   `vinder_id` int(2) NOT NULL,
   `ture_hardcode` int(2) NOT NULL,
   `season` decimal(2,1) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Data dump for tabellen `kampe`
+-- Dumping data for table `kampe`
 --
 
 INSERT INTO `kampe` (`id`, `ang_id`, `ang_rating`, `for_id`, `for_rating`, `start`, `slut`, `scslag`, `scenario`, `blind`, `grudge`, `ang_start`, `ang_total`, `for_start`, `for_total`, `wounds`, `vinder_id`, `ture_hardcode`, `season`) VALUES
-(1, 5, 1454, 2, 1890, 1460484000, 1460484000, 8, 'Ambush', '0', 0, 10, 10, 11, 11, 3, 2, 0, 1.0),
-(2, 8, 1477, 7, 1678, 1461004200, 1461014100, 8, 'Scavengers', '0', 0, 9, 9, 7, 9, 11, 8, 0, 0.0),
-(3, 6, 1293, 11, 1930, 1461694440, 1461698220, 8, 'Shoot Out', '0', 0, 3, 3, 5, 5, 6, 6, 0, 0.0),
-(4, 9, 1749, 8, 1632, 1464717600, 1464723000, 4, 'Ambush', '0', 0, 13, 13, 9, 9, 5, 9, 0, 0.0),
-(5, 5, 1589, 10, 1390, 1464441420, 1464441420, 4, 'Ambush', '0', 0, 10, 10, 9, 9, 13, 5, 0, 0.0),
-(6, 11, 1485, 9, 1622, 1464452580, 1464468600, 6, 'Scavengers', '0', 0, 12, 12, 12, 12, 14, 9, 0, 0.0),
-(7, 11, 1447, 6, 1677, 1465322640, 1465329600, 8, 'The Hit', '0', 0, 9, 9, 6, 8, 14, 11, 0, 0.0),
-(8, 3, 1532, 7, 1578, 1465330200, 1465338600, 6, 'Gang Fight', '0', 0, 10, 10, 8, 8, 7, 3, 0, 0.0),
-(9, 1, 1311, 11, 1584, 1465926000, 1465932900, 8, 'Scavengers', '0', 0, 12, 12, 10, 10, 5, 11, 0, 0.0),
-(10, 2, 1268, 11, 1692, 1497471060, 1497471060, 10, 'Hit & Run', '0', 0, 6, 6, 5, 13, 8, 11, 0, 0.0),
-(11, 11, 1762, 9, 2119, 1466532000, 1466537400, 0, 'Rescue Mission', '0', 0, 6, 6, 1, 1, 7, 11, 0, 0.0),
-(12, 2, 1370, 10, 1493, 1467138960, 1467147600, 0, 'Gang Fight', '0', 0, 11, 11, 9, 9, 7, 10, 0, 0.0),
-(13, 10, 1600, 9, 1653, 1468886400, 1468886400, 7, 'Blind Fight', 'Scavengers', 0, 9, 9, 13, 13, 3, 9, 0, 0.0),
-(14, 10, 1393, 8, 1723, 1466538000, 1466543400, 8, 'The Hoard', '0', 0, 9, 9, 9, 9, 4, 8, 0, 0.0),
-(15, 10, 1472, 11, 1858, 1469561940, 1469561940, 9, 'Blind Fight', 'Ambush', 0, 9, 9, 13, 13, 13, 11, 0, 0.0),
-(16, 8, 1773, 11, 1971, 1470159360, 1470167580, 7, 'The Hoard', '0', 0, 9, 9, 4, 13, 6, 11, 0, 0.0),
-(17, 2, 1525, 9, 1816, 1470766200, 1470766200, 8, 'The Hunters', '0', 0, 8, 10, 13, 13, 14, 2, 0, 0.0),
-(18, 9, 1757, 7, 1536, 1471370400, 1471375260, 3, 'Ambush', '0', 0, 12, 12, 9, 9, 3, 9, 0, 0.0),
-(19, 7, 1604, 11, 2064, 1471376700, 1471386600, 6, 'Gang Fight', '0', 0, 9, 9, 13, 13, 9, 11, 0, 0.0),
-(20, 10, 1773, 2, 1820, 1471978800, 1471986000, 7, 'Blind Fight', 'Scavengers', 0, 10, 10, 11, 11, 9, 10, 0, 0.0),
-(21, 7, 1563, 6, 1379, 1472581800, 1472590800, 4, 'Gang Fight', '0', 0, 6, 8, 10, 10, 9, 7, 0, 0.0),
-(22, 12, 1271, 9, 1922, 1473185400, 1473185400, 12, 'Ambush', '0', 1, 9, 9, 13, 13, 8, 9, 0, 0.0),
-(23, 4, 980, 12, 1098, 1473790380, 1473790380, 7, 'The Caravan', '0', 0, 7, 7, 6, 6, 9, 12, 0, 0.0),
-(24, 4, 1066, 10, 1899, 1474398600, 1474403400, 10, 'The Hit', '0', 0, 6, 6, 10, 10, 5, 4, 0, 0.0),
-(25, 4, 1305, 8, 1604, 1476210600, 1476210600, 7, 'Package Run', '0', 0, 4, 4, 3, 3, 6, 8, 0, 0.0),
-(26, 12, 1337, 2, 1945, 1477419900, 1477419900, 7, 'The Raid', '0', 0, 5, 5, 3, 3, 6, 12, 0, 0.0),
-(27, 2, 2057, 8, 1652, 1478629800, 1478643000, 3, 'The Caravan', '0', 0, 9, 9, 7, 7, 22, 2, 0, 0.0),
-(28, 7, 1795, 11, 2159, 1479168000, 1479168000, 9, 'The Hunters', '0', 0, 5, 5, 11, 11, 17, 11, 0, 0.0),
-(29, 4, 1388, 12, 1505, 1479651300, 1479651300, 8, 'The Hit', '0', 0, 0, 0, 0, 0, 14, 12, 0, 0.0),
-(30, 5, 1263, 10, 1936, 1480443360, 1480454100, 5, 'Gang Fight', '0', 0, 10, 10, 11, 11, 6, 10, 0, 0.0),
-(31, 9, 2098, 5, 1490, 1481587200, 1481587200, 2, 'Blind Fight', 'Ambush', 1, 14, 14, 0, 0, 8, 9, 0, 0.0),
-(32, 12, 1112, 4, 1323, 1482090540, 1482098640, 6, 'Gang Fight', '0', 0, 7, 7, 7, 7, 9, 4, 0, 0.0),
-(33, 8, 2016, 10, 2176, 1485887940, 1485899400, 5, 'Gang Fight', '0', 0, 9, 9, 12, 12, 11, 10, 10, 3.0),
-(35, 7, 1960, 2, 2276, 1486490940, 1486501500, 10, 'Scavengers', '0', 0, 7, 7, 12, 12, 12, 2, 0, 3.0),
-(36, 11, 2239, 9, 2598, 1487095380, 1487104380, 5, 'Hit & Run', '0', 0, 6, 6, 5, 9, 9, 9, 0, 3.0),
-(37, 10, 2262, 11, 2293, 1487700600, 1487710800, 9, 'Blind Fight', 'The Hoard', 0, 12, 12, 5, 13, 9, 11, 0, 3.0),
-(38, 7, 2029, 8, 2053, 1488306600, 1488315780, 6, 'Gang Fight', '0', 0, 8, 8, 10, 10, 6, 8, 0, 3.0),
-(39, 9, 2719, 2, 2341, 1488911400, 1488919320, 0, 'Rescue Mission', '0', 0, 5, 5, 4, 10, 14, 2, 0, 3.0),
-(40, 10, 2481, 2, 2639, 1489515960, 1489526100, 8, 'Blind Fight', 'The Hoard', 0, 12, 12, 5, 13, 13, 2, 0, 3.0),
-(41, 8, 2154, 12, 1458, 1490119500, 1490127300, 4, 'Scavengers', '0', 0, 10, 10, 8, 8, 5, 8, 0, 3.0),
-(42, 7, 2072, 9, 2574, 1490725740, 1490733000, 5, 'Gang Fight', '0', 0, 8, 8, 12, 12, 6, 9, 0, 3.0),
-(43, 4, 1622, 8, 2273, 1491329580, 1491333480, 9, 'The Hunters', '0', 0, 6, 6, 10, 10, 3, 8, 0, 3.0),
-(44, 12, 1331, 2, 2650, 1491933600, 1491939420, 6, 'Gang Fight', '0', 0, 6, 6, 12, 12, 5, 2, 0, 3.0),
-(45, 10, 2555, 7, 2436, 1492542360, 1492550100, 4, 'Blind Fight', 'Ambush', 0, 9, 9, 3, 6, 9, 7, 0, 3.0),
-(46, 8, 2370, 2, 2788, 1493143320, 1493151600, 8, 'The Hoard', '0', 0, 10, 10, 5, 13, 2, 2, 0, 3.0),
-(47, 9, 2943, 10, 2697, 1493749800, 1493763780, 4, 'Blind Fight', 'Scavengers', 0, 15, 15, 11, 11, 20, 10, 0, 3.0),
-(48, 11, 2419, 7, 2524, 1525976340, 1525989000, 8, 'Heist', '0', 0, 13, 13, 8, 8, 13, 11, 0, 3.0),
-(49, 7, 2659, 10, 2798, 1495131900, 1495144200, 10, 'The Hunters', '0', 0, 7, 9, 4, 11, 15, 10, 0, 3.0),
-(50, 2, 2928, 9, 3090, 1495478640, 1495489200, 7, 'Gang Fight', '0', 0, 13, 13, 14, 14, 28, 2, 0, 3.0),
-(51, 11, 2615, 8, 2491, 1496167860, 1496180520, 0, 'Heist', '0', 0, 16, 16, 11, 11, 18, 11, 0, 3.0),
-(52, 11, 2882, 2, 3245, 989172660, 989180220, 0, 'The Hoard', '0', 0, 19, 19, 4, 13, 16, 11, 0, 3.0),
-(53, 8, 2446, 10, 2965, 1497466200, 1497474480, 7, 'Scavengers', '0', 0, 10, 10, 11, 11, 12, 10, 0, 3.0),
-(54, 9, 2627, 7, 2713, 1497983400, 1497988320, 12, 'The Hunters', '0', 0, 7, 12, 10, 10, 5, 9, 0, 3.0),
-(55, 0, 0, 0, 0, 1182788400, 1182798000, 0, 'The Fall of Bloodgutter Gulch', '0', 0, 18, 18, 18, 18, 21, 8, 0, 3.0);
+(1, 5, 1454, 2, 1890, 1460484000, 1460484000, 8, 'Ambush', '0', 0, 10, 10, 11, 11, 3, 2, 0, '0.0'),
+(2, 8, 1477, 7, 1678, 1461004200, 1461014100, 8, 'Scavengers', '0', 0, 9, 9, 7, 9, 11, 8, 0, '0.0'),
+(3, 6, 1293, 11, 1930, 1461694440, 1461698220, 8, 'Shoot Out', '0', 0, 3, 3, 5, 5, 6, 6, 0, '0.0'),
+(4, 9, 1749, 8, 1632, 1464717600, 1464723000, 4, 'Ambush', '0', 0, 13, 13, 9, 9, 5, 9, 0, '0.0'),
+(5, 5, 1589, 10, 1390, 1464441420, 1464441420, 4, 'Ambush', '0', 0, 10, 10, 9, 9, 13, 5, 0, '0.0'),
+(6, 11, 1485, 9, 1622, 1464452580, 1464468600, 6, 'Scavengers', '0', 0, 12, 12, 12, 12, 14, 9, 0, '0.0'),
+(7, 11, 1447, 6, 1677, 1465322640, 1465329600, 8, 'The Hit', '0', 0, 9, 9, 6, 8, 14, 11, 0, '0.0'),
+(8, 3, 1532, 7, 1578, 1465330200, 1465338600, 6, 'Gang Fight', '0', 0, 10, 10, 8, 8, 7, 3, 0, '0.0'),
+(9, 1, 1311, 11, 1584, 1465926000, 1465932900, 8, 'Scavengers', '0', 0, 12, 12, 10, 10, 5, 11, 0, '0.0'),
+(10, 2, 1268, 11, 1692, 1497471060, 1497471060, 10, 'Hit & Run', '0', 0, 6, 6, 5, 13, 8, 11, 0, '0.0'),
+(11, 11, 1762, 9, 2119, 1466532000, 1466537400, 0, 'Rescue Mission', '0', 0, 6, 6, 1, 1, 7, 11, 0, '0.0'),
+(12, 2, 1370, 10, 1493, 1467138960, 1467147600, 0, 'Gang Fight', '0', 0, 11, 11, 9, 9, 7, 10, 0, '0.0'),
+(13, 10, 1600, 9, 1653, 1468886400, 1468886400, 7, 'Blind Fight', 'Scavengers', 0, 9, 9, 13, 13, 3, 9, 0, '0.0'),
+(14, 10, 1393, 8, 1723, 1466538000, 1466543400, 8, 'The Hoard', '0', 0, 9, 9, 9, 9, 4, 8, 0, '0.0'),
+(15, 10, 1472, 11, 1858, 1469561940, 1469561940, 9, 'Blind Fight', 'Ambush', 0, 9, 9, 13, 13, 13, 11, 0, '0.0'),
+(16, 8, 1773, 11, 1971, 1470159360, 1470167580, 7, 'The Hoard', '0', 0, 9, 9, 4, 13, 6, 11, 0, '0.0'),
+(17, 2, 1525, 9, 1816, 1470766200, 1470766200, 8, 'The Hunters', '0', 0, 8, 10, 13, 13, 14, 2, 0, '0.0'),
+(18, 9, 1757, 7, 1536, 1471370400, 1471375260, 3, 'Ambush', '0', 0, 12, 12, 9, 9, 3, 9, 0, '0.0'),
+(19, 7, 1604, 11, 2064, 1471376700, 1471386600, 6, 'Gang Fight', '0', 0, 9, 9, 13, 13, 9, 11, 0, '0.0'),
+(20, 10, 1773, 2, 1820, 1471978800, 1471986000, 7, 'Blind Fight', 'Scavengers', 0, 10, 10, 11, 11, 9, 10, 0, '0.0'),
+(21, 7, 1563, 6, 1379, 1472581800, 1472590800, 4, 'Gang Fight', '0', 0, 6, 8, 10, 10, 9, 7, 0, '0.0'),
+(22, 12, 1271, 9, 1922, 1473185400, 1473185400, 12, 'Ambush', '0', 1, 9, 9, 13, 13, 8, 9, 0, '0.0'),
+(23, 4, 980, 12, 1098, 1473790380, 1473790380, 7, 'The Caravan', '0', 0, 7, 7, 6, 6, 9, 12, 0, '0.0'),
+(24, 4, 1066, 10, 1899, 1474398600, 1474403400, 10, 'The Hit', '0', 0, 6, 6, 10, 10, 5, 4, 0, '0.0'),
+(25, 4, 1305, 8, 1604, 1476210600, 1476210600, 7, 'Package Run', '0', 0, 4, 4, 3, 3, 6, 8, 0, '0.0'),
+(26, 12, 1337, 2, 1945, 1477419900, 1477419900, 7, 'The Raid', '0', 0, 5, 5, 3, 3, 6, 12, 0, '0.0'),
+(27, 2, 2057, 8, 1652, 1478629800, 1478643000, 3, 'The Caravan', '0', 0, 9, 9, 7, 7, 22, 2, 0, '0.0'),
+(28, 7, 1795, 11, 2159, 1479168000, 1479168000, 9, 'The Hunters', '0', 0, 5, 5, 11, 11, 17, 11, 0, '0.0'),
+(29, 4, 1388, 12, 1505, 1479651300, 1479651300, 8, 'The Hit', '0', 0, 0, 0, 0, 0, 14, 12, 0, '0.0'),
+(30, 5, 1263, 10, 1936, 1480443360, 1480454100, 5, 'Gang Fight', '0', 0, 10, 10, 11, 11, 6, 10, 0, '0.0'),
+(31, 9, 2098, 5, 1490, 1481587200, 1481587200, 2, 'Blind Fight', 'Ambush', 1, 14, 14, 0, 0, 8, 9, 0, '0.0'),
+(32, 12, 1112, 4, 1323, 1482090540, 1482098640, 6, 'Gang Fight', '0', 0, 7, 7, 7, 7, 9, 4, 0, '0.0'),
+(33, 8, 2016, 10, 2176, 1485887940, 1485899400, 5, 'Gang Fight', '0', 0, 9, 9, 12, 12, 11, 10, 10, '3.0'),
+(35, 7, 1960, 2, 2276, 1486490940, 1486501500, 10, 'Scavengers', '0', 0, 7, 7, 12, 12, 12, 2, 0, '3.0'),
+(36, 11, 2239, 9, 2598, 1487095380, 1487104380, 5, 'Hit & Run', '0', 0, 6, 6, 5, 9, 9, 9, 0, '3.0'),
+(37, 10, 2262, 11, 2293, 1487700600, 1487710800, 9, 'Blind Fight', 'The Hoard', 0, 12, 12, 5, 13, 9, 11, 0, '3.0'),
+(38, 7, 2029, 8, 2053, 1488306600, 1488315780, 6, 'Gang Fight', '0', 0, 8, 8, 10, 10, 6, 8, 0, '3.0'),
+(39, 9, 2719, 2, 2341, 1488911400, 1488919320, 0, 'Rescue Mission', '0', 0, 5, 5, 4, 10, 14, 2, 0, '3.0'),
+(40, 10, 2481, 2, 2639, 1489515960, 1489526100, 8, 'Blind Fight', 'The Hoard', 0, 12, 12, 5, 13, 13, 2, 0, '3.0'),
+(41, 8, 2154, 12, 1458, 1490119500, 1490127300, 4, 'Scavengers', '0', 0, 10, 10, 8, 8, 5, 8, 0, '3.0'),
+(42, 7, 2072, 9, 2574, 1490725740, 1490733000, 5, 'Gang Fight', '0', 0, 8, 8, 12, 12, 6, 9, 0, '3.0'),
+(43, 4, 1622, 8, 2273, 1491329580, 1491333480, 9, 'The Hunters', '0', 0, 6, 6, 10, 10, 3, 8, 0, '3.0'),
+(44, 12, 1331, 2, 2650, 1491933600, 1491939420, 6, 'Gang Fight', '0', 0, 6, 6, 12, 12, 5, 2, 0, '3.0'),
+(45, 10, 2555, 7, 2436, 1492542360, 1492550100, 4, 'Blind Fight', 'Ambush', 0, 9, 9, 3, 6, 9, 7, 0, '3.0'),
+(46, 8, 2370, 2, 2788, 1493143320, 1493151600, 8, 'The Hoard', '0', 0, 10, 10, 5, 13, 2, 2, 0, '3.0'),
+(47, 9, 2943, 10, 2697, 1493749800, 1493763780, 4, 'Blind Fight', 'Scavengers', 0, 15, 15, 11, 11, 20, 10, 0, '3.0'),
+(48, 11, 2419, 7, 2524, 1525976340, 1525989000, 8, 'Heist', '0', 0, 13, 13, 8, 8, 13, 11, 0, '3.0'),
+(49, 7, 2659, 10, 2798, 1495131900, 1495144200, 10, 'The Hunters', '0', 0, 7, 9, 4, 11, 15, 10, 0, '3.0'),
+(50, 2, 2928, 9, 3090, 1495478640, 1495489200, 7, 'Gang Fight', '0', 0, 13, 13, 14, 14, 28, 2, 0, '3.0'),
+(51, 11, 2615, 8, 2491, 1496167860, 1496180520, 0, 'Heist', '0', 0, 16, 16, 11, 11, 18, 11, 0, '3.0'),
+(52, 11, 2882, 2, 3245, 989172660, 989180220, 0, 'The Hoard', '0', 0, 19, 19, 4, 13, 16, 11, 0, '3.0'),
+(53, 8, 2446, 10, 2965, 1497466200, 1497474480, 7, 'Scavengers', '0', 0, 10, 10, 11, 11, 12, 10, 0, '3.0'),
+(54, 9, 2627, 7, 2713, 1497983400, 1497988320, 12, 'The Hunters', '0', 0, 7, 12, 10, 10, 5, 9, 0, '3.0'),
+(55, 0, 0, 0, 0, 1182788400, 1182798000, 0, 'The Fall of Bloodgutter Gulch', '0', 0, 18, 18, 18, 18, 21, 8, 0, '3.0'),
+(56, 15, 1260, 14, 1288, 1499192820, 1499200200, 8, 'Blind Fight', 'Ambush', 0, 9, 9, 9, 9, 16, 14, 0, '3.5');
 
 -- --------------------------------------------------------
 
 --
--- Struktur-dump for tabellen `skader`
+-- Table structure for table `skader`
 --
 
-CREATE TABLE IF NOT EXISTS `skader` (
+DROP TABLE IF EXISTS `skader`;
+CREATE TABLE `skader` (
   `id` int(11) NOT NULL,
   `skade` text NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Data dump for tabellen `skader`
+-- Dumping data for table `skader`
 --
 
 INSERT INTO `skader` (`id`, `skade`) VALUES
@@ -345,15 +373,17 @@ INSERT INTO `skader` (`id`, `skade`) VALUES
 (21, 'Hand Injury (Right)'),
 (22, 'Leg Wound (Left)'),
 (23, 'Leg Wound (Right)'),
-(24, 'Shell Shock');
+(24, 'Shell Shock'),
+(25, 'Escape Artistry');
 
 -- --------------------------------------------------------
 
 --
--- Struktur-dump for tabellen `wounds`
+-- Table structure for table `wounds`
 --
 
-CREATE TABLE IF NOT EXISTS `wounds` (
+DROP TABLE IF EXISTS `wounds`;
+CREATE TABLE `wounds` (
   `id` int(11) NOT NULL,
   `kamp_id` int(11) NOT NULL,
   `tur` int(11) NOT NULL,
@@ -363,10 +393,10 @@ CREATE TABLE IF NOT EXISTS `wounds` (
   `resultat` text NOT NULL,
   `serious_injury` int(11) NOT NULL,
   `multiple_injuries` text NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=531 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Data dump for tabellen `wounds`
+-- Dumping data for table `wounds`
 --
 
 INSERT INTO `wounds` (`id`, `kamp_id`, `tur`, `saarer_id`, `saaret_id`, `high_impact`, `resultat`, `serious_injury`, `multiple_injuries`) VALUES
@@ -899,66 +929,89 @@ INSERT INTO `wounds` (`id`, `kamp_id`, `tur`, `saarer_id`, `saaret_id`, `high_im
 (527, 55, 7, 65, 131, 0, 'OOA', 1, '0'),
 (528, 55, 8, 124, 1, 0, 'W', 9, '0'),
 (529, 55, 8, 40, 1, 0, 'OOA', 1, '0'),
-(530, 55, 9, 124, 40, 0, 'OOA', 24, '0');
+(530, 55, 9, 124, 40, 0, 'OOA', 24, '0'),
+(531, 56, 2, 4, 150, 0, 'D', 1, '0'),
+(532, 56, 2, 151, 152, 0, 'FW', 1, '0'),
+(533, 56, 2, 151, 152, 0, 'OOA', 1, '0'),
+(534, 56, 3, 153, 150, 1, 'OOA', 25, '0'),
+(535, 56, 3, 154, 155, 0, 'OOA', 2, '0'),
+(536, 56, 4, 156, 157, 0, 'OOA', 18, '0'),
+(537, 56, 5, 158, 159, 0, 'D', 2, '0'),
+(538, 56, 5, 160, 161, 0, 'OOA', 19, '0'),
+(539, 56, 6, 162, 163, 0, 'OOA', 1, '0'),
+(540, 56, 7, 164, 165, 0, 'OOA', 10, '0'),
+(541, 56, 7, 162, 166, 0, 'FW', 1, '0'),
+(542, 56, 8, 4, 151, 0, 'D', 1, '0'),
+(543, 56, 8, 162, 166, 0, 'FW', 1, '0'),
+(544, 56, 8, 162, 166, 0, 'OOA', 22, '0'),
+(545, 56, 9, 158, 156, 0, 'D', 1, '0'),
+(546, 56, 10, 162, 158, 0, 'D', 22, '0');
 
 --
--- Begrænsninger for dumpede tabeller
+-- Indexes for dumped tables
 --
 
 --
--- Indeks for tabel `bander`
+-- Indexes for table `bander`
 --
 ALTER TABLE `bander`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks for tabel `gangers`
+-- Indexes for table `gangers`
 --
 ALTER TABLE `gangers`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks for tabel `kampe`
+-- Indexes for table `kampe`
 --
 ALTER TABLE `kampe`
-  ADD UNIQUE KEY `id_3` (`id`), ADD KEY `id` (`id`), ADD KEY `id_2` (`id`);
+  ADD UNIQUE KEY `id_3` (`id`),
+  ADD KEY `id` (`id`),
+  ADD KEY `id_2` (`id`);
 
 --
--- Indeks for tabel `skader`
+-- Indexes for table `skader`
 --
 ALTER TABLE `skader`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks for tabel `wounds`
+-- Indexes for table `wounds`
 --
 ALTER TABLE `wounds`
   ADD PRIMARY KEY (`id`);
 
 --
--- Brug ikke AUTO_INCREMENT for slettede tabeller
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- Tilføj AUTO_INCREMENT i tabel `gangers`
+-- AUTO_INCREMENT for table `gangers`
 --
 ALTER TABLE `gangers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=150;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=167;
+
 --
--- Tilføj AUTO_INCREMENT i tabel `kampe`
+-- AUTO_INCREMENT for table `kampe`
 --
 ALTER TABLE `kampe`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=56;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+
 --
--- Tilføj AUTO_INCREMENT i tabel `skader`
+-- AUTO_INCREMENT for table `skader`
 --
 ALTER TABLE `skader`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+
 --
--- Tilføj AUTO_INCREMENT i tabel `wounds`
+-- AUTO_INCREMENT for table `wounds`
 --
 ALTER TABLE `wounds`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=531;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=547;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
